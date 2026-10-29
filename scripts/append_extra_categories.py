@@ -337,3 +337,4 @@ with open('nlp_export/job_categories.json', 'w', encoding='utf-8') as f:
     json.dump(existing, f, indent=2, ensure_ascii=False)
 
 print("Saved updated nlp_export/job_categories.json!")
+

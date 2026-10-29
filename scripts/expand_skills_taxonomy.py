@@ -383,3 +383,4 @@ with open('nlp_export/skills_taxonomy.json', 'w', encoding='utf-8') as f:
     json.dump(tax, f, indent=2, ensure_ascii=False)
 
 print("Saved nlp_export/skills_taxonomy.json successfully!")
+

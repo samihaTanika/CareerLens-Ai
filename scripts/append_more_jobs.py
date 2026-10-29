@@ -578,3 +578,4 @@ with open('frontend/src/data/mockJobs.js', 'w', encoding='utf-8') as f:
     f.write(updated_content)
 
 print(f"Successfully inserted {len(new_jobs)} new jobs into mockJobs.js!")
+

@@ -31,3 +31,4 @@ for path in files_to_fix:
         print(f"Updated BDJobs links in {path}")
     else:
         print(f"No changes needed in {path}")
+

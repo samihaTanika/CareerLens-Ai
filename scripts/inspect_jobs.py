@@ -9,3 +9,4 @@ print(f"Total jobs in mockJobs.js: {len(titles)}")
 for i, t in enumerate(titles, 1):
     sec = sectors[i-1] if i-1 < len(sectors) else 'N/A'
     print(f"{i}. {t} [{sec}]")
+

@@ -898,3 +898,4 @@ with open('nlp_export/job_categories.json', 'w', encoding='utf-8') as f:
     json.dump(categories, f, indent=2, ensure_ascii=False)
 
 print("Saved nlp_export/job_categories.json successfully.")
+
