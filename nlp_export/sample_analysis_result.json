@@ -1,0 +1,386 @@
+{
+  "cv_summary": {
+    "name": "Richard Williams",
+    "email": "RichardWilliams@gmail.com",
+    "phone": "(770) 625-9669",
+    "education": "Master's Degree (BBA / Finance)",
+    "universities": [
+      "Louisiana State University"
+    ],
+    "experience_years": 7,
+    "total_skills_found": 12,
+    "extracted_skills": [
+      "Excel",
+      "Salesforce",
+      "Project Management",
+      "Financial Advisory",
+      "Portfolio Management",
+      "Asset Management",
+      "Risk Strategy",
+      "Client Relationship",
+      "Strategic Planning",
+      "Financial Analysis",
+      "AUM Management",
+      "Communication"
+    ],
+    "skill_categories": {
+      "business_finance": [
+        "Excel",
+        "Salesforce",
+        "Financial Advisory",
+        "Portfolio Management",
+        "Asset Management",
+        "Financial Analysis",
+        "AUM Management"
+      ],
+      "project_management": [
+        "Project Management",
+        "Risk Strategy",
+        "Strategic Planning"
+      ],
+      "soft_skills": [
+        "Communication",
+        "Client Relationship"
+      ]
+    }
+  },
+  "overall_cv_score": 82,
+  "overall_summary": "The candidate possesses a solid educational foundation in Business Administration paired with 7 years of high-impact advisory experience, managing multi-million dollar asset portfolios (over $190M AUM). Equipped with strong capabilities in financial advisory, client relationship management, Excel, and Salesforce, this profile is a premier fit for commercial banking operations, wealth management, and senior project coordination in Bangladesh.",
+  "top_recommendations": [
+    "Target Senior Relationship Manager and Credit Operations roles in Tier-1 Private Commercial Banks (e.g. BRAC Bank, City Bank, Eastern Bank) and NBFIs (IDLC).",
+    "Highlight quantifiable portfolio metrics ($190M AUM, 50% growth) in the executive summary of your CV for high recruiter traction.",
+    "Acquire local regulatory credentials such as JAIBB/AIBB or Bangladesh Bank compliance training to accelerate executive promotion."
+  ],
+  "top_categories": [
+    {
+      "rank": 1,
+      "category_id": "banking-mto-general",
+      "category_name": "Banking & Financial Services",
+      "match_percentage": 88,
+      "status": "Strong Fit",
+      "matched_skills": [
+        "Excel",
+        "Financial Advisory",
+        "Portfolio Management",
+        "Asset Management",
+        "Financial Analysis",
+        "Client Relationship",
+        "Communication"
+      ],
+      "missing_skills": [
+        { "skill": "Bangladesh Bank Regulations", "priority": "critical" },
+        { "skill": "Banking Operations (Core Banking)", "priority": "critical" },
+        { "skill": "Trade Finance (L/C, Offshore)", "priority": "important" },
+        { "skill": "Credit Risk Appraisal", "priority": "important" },
+        { "skill": "AML/CFT Compliance", "priority": "important" }
+      ],
+      "education_fit": 95,
+      "experience_fit": 95,
+      "salary_range": {
+        "min": 60000,
+        "max": 180000
+      },
+      "demand_level": "very_high",
+      "why_good_fit": "Academic grounding in Business Administration combined with 7 years of proven wealth advisory and portfolio management directly aligns with Private Commercial Banking relationship and credit divisions in Dhaka.",
+      "key_missing_areas": [
+        "Bangladesh Bank regulatory compliance guidelines",
+        "Core banking software familiarity (e.g. Finacle, Temenos)",
+        "Trade finance documentation and L/C processing"
+      ],
+      "learning_roadmap": [
+        "Study Bangladesh Bank prudential guidelines on corporate loans and risk mitigation.",
+        "Enroll in Banking Professional Examination (JAIBB/AIBB) through the Institute of Bankers, Bangladesh (IBB).",
+        "Familiarize yourself with local credit risk appraisal and financial modeling standards in Excel."
+      ],
+      "market_outlook_bd": "Rapidly growing demand across 40+ Private Commercial Banks and NBFIs in Dhaka seeking seasoned portfolio managers for HNIs and corporate banking.",
+      "application_links": {
+        "bdjobs": "https://bdjobs.com/jobsearch?keyword=Banking%20%26%20Financial%20Services",
+        "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=Banking%20Relationship%20Manager&location=Bangladesh"
+      },
+      "active_jobs": [
+        {
+          "id": "job-bnk-01",
+          "title": "Senior Relationship Manager — Corporate Banking",
+          "company": "BRAC Bank PLC",
+          "location": "Gulshan, Dhaka",
+          "type": "Full-time",
+          "salary": "৳90,000 - ৳140,000 / month",
+          "experience": "5-8 years",
+          "deadline": "October 15, 2026",
+          "description": "Managing corporate portfolio clients, structured financial products, and business relationship expansion.",
+          "apply_url": "https://bdjobs.com/jobdetails?id=124890",
+          "company_url": "https://www.bracbank.com"
+        },
+        {
+          "id": "job-bnk-02",
+          "title": "Manager — Wealth & Asset Management",
+          "company": "IDLC Finance Limited",
+          "location": "Motijheel, Dhaka",
+          "type": "Full-time",
+          "salary": "৳85,000 - ৳130,000 / month",
+          "experience": "5-7 years",
+          "deadline": "October 20, 2026",
+          "description": "Overseeing high-net-worth portfolio investments, risk mitigation strategy, and client advisory services.",
+          "apply_url": "https://bdjobs.com/jobdetails?id=125032",
+          "company_url": "https://www.idlc.com"
+        },
+        {
+          "id": "job-bnk-03",
+          "title": "Senior Officer — Retail Banking Operations",
+          "company": "The City Bank Limited",
+          "location": "Banani, Dhaka",
+          "type": "Full-time",
+          "salary": "৳65,000 - ৳95,000 / month",
+          "experience": "4-6 years",
+          "deadline": "October 25, 2026",
+          "description": "Managing branch level customer wealth advisory, credit risk assessments, and priority banking operations.",
+          "apply_url": "https://bdjobs.com/jobdetails?id=125190",
+          "company_url": "https://www.thecitybank.com"
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "category_id": "accounting-audit-tax",
+      "category_name": "Accounting, Audit & Taxation",
+      "match_percentage": 78,
+      "status": "Good Fit",
+      "matched_skills": [
+        "Excel",
+        "Financial Analysis",
+        "Asset Management",
+        "Strategic Planning"
+      ],
+      "missing_skills": [
+        { "skill": "Bangladesh Income Tax Act 2023", "priority": "critical" },
+        { "skill": "TallyPrime / SAP ERP", "priority": "critical" },
+        { "skill": "VDS & TDS Computation", "priority": "important" },
+        { "skill": "BFRS / IFRS Reporting Standards", "priority": "important" },
+        { "skill": "Internal Audit Procedures", "priority": "important" }
+      ],
+      "education_fit": 90,
+      "experience_fit": 95,
+      "salary_range": {
+        "min": 50000,
+        "max": 140000
+      },
+      "demand_level": "very_high",
+      "why_good_fit": "Extensive quantitative financial modeling and portfolio valuation in Excel provides a seamless transition into managerial finance and budgeting roles.",
+      "key_missing_areas": [
+        "National Board of Revenue (NBR) corporate tax filing guidelines",
+        "Enterprise ERP systems like SAP FICO or TallyPrime",
+        "Chartered audit documentation standards"
+      ],
+      "learning_roadmap": [
+        "Complete a short certification course on Bangladesh Corporate Tax, VAT, and Customs laws.",
+        "Master SAP Financial Accounting (FI/CO) or TallyPrime ledger reporting.",
+        "Deepen knowledge of corporate financial statements compliance under ICAB standards."
+      ],
+      "market_outlook_bd": "High, steady demand across corporate conglomerates (Square, Beximco, PRAN-RFL) and leading audit consultancies in Dhaka and Chattogram.",
+      "application_links": {
+        "bdjobs": "https://bdjobs.com/jobsearch?keyword=Accounting%2C%20Audit%20%26%20Taxation",
+        "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=Finance%20Manager&location=Bangladesh"
+      },
+      "active_jobs": [
+        {
+          "id": "job-acc-01",
+          "title": "Assistant Finance & Accounts Manager",
+          "company": "Square Pharmaceuticals PLC",
+          "location": "Uttara, Dhaka",
+          "type": "Full-time",
+          "salary": "৳75,000 - ৳110,000 / month",
+          "experience": "5-8 years",
+          "deadline": "October 18, 2026",
+          "description": "Leading divisional financial reporting, treasury management, and audit reconciliation.",
+          "apply_url": "https://bdjobs.com/jobdetails?id=126101",
+          "company_url": "https://www.squarepharma.com.bd"
+        },
+        {
+          "id": "job-acc-02",
+          "title": "Senior Accounts Executive (Taxation & Reporting)",
+          "company": "Beximco Communications Ltd",
+          "location": "Dhanmondi, Dhaka",
+          "type": "Full-time",
+          "salary": "৳60,000 - ৳85,000 / month",
+          "experience": "4-6 years",
+          "deadline": "October 22, 2026",
+          "description": "Managing monthly TDS/VDS compliance, balance sheet reconciliation, and vendor payment audits.",
+          "apply_url": "https://bdjobs.com/jobdetails?id=126244",
+          "company_url": "https://www.beximco.com"
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "category_id": "ngo-development-project",
+      "category_name": "NGO, Social Development & Project Management",
+      "match_percentage": 75,
+      "status": "Good Fit",
+      "matched_skills": [
+        "Project Management",
+        "Strategic Planning",
+        "Client Relationship",
+        "Communication",
+        "Excel"
+      ],
+      "missing_skills": [
+        { "skill": "Monitoring & Evaluation (M&E)", "priority": "critical" },
+        { "skill": "Donor Reporting (USAID, FCDO)", "priority": "critical" },
+        { "skill": "Grant Proposal Writing", "priority": "important" },
+        { "skill": "Stakeholder Mobilization", "priority": "important" }
+      ],
+      "education_fit": 85,
+      "experience_fit": 95,
+      "salary_range": {
+        "min": 65000,
+        "max": 170000
+      },
+      "demand_level": "high",
+      "why_good_fit": "Your verified 7-year track record in project management, stakeholder communication, and multi-party coordination aligns with INGO project coordinator requirements.",
+      "key_missing_areas": [
+        "Results-based management (RBM) and MEAL frameworks",
+        "Multilateral donor funding rules (USAID, World Bank, UNDP)",
+        "Social impact measurement"
+      ],
+      "learning_roadmap": [
+        "Pursue Project DPro (PMD Pro) certification for international development.",
+        "Study project proposal writing and logical framework (LogFrame) modeling.",
+        "Attend local NGO governance workshops on donor compliance."
+      ],
+      "market_outlook_bd": "Bangladesh is home to global development leaders like BRAC, icddr,b, and international agencies that actively recruit operational project managers.",
+      "application_links": {
+        "bdjobs": "https://bdjobs.com/jobsearch?keyword=NGO%2C%20Social%20Development%20%26%20Project%20Management",
+        "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=Project%20Coordinator%20NGO&location=Bangladesh"
+      },
+      "active_jobs": [
+        {
+          "id": "job-ngo-01",
+          "title": "Project Coordinator — Economic Empowerment",
+          "company": "BRAC International",
+          "location": "Dhaka & Field Visits",
+          "type": "Full-time",
+          "salary": "৳90,000 - ৳150,000 / month",
+          "experience": "5-8 years",
+          "deadline": "October 30, 2026",
+          "description": "Leading cross-functional project execution, budget tracking, and donor liaison for livelihood programs.",
+          "apply_url": "https://bdjobs.com/jobdetails?id=127300",
+          "company_url": "https://www.brac.net"
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "category_id": "corporate-sales-business-dev",
+      "category_name": "Corporate Sales & Business Development",
+      "match_percentage": 73,
+      "status": "Good Fit",
+      "matched_skills": [
+        "Salesforce",
+        "Client Relationship",
+        "Communication",
+        "Strategic Planning",
+        "Excel"
+      ],
+      "missing_skills": [
+        { "skill": "B2B Deal Structuring", "priority": "critical" },
+        { "skill": "Key Account Management (KAM)", "priority": "critical" },
+        { "skill": "Sales Pipeline Optimization", "priority": "important" },
+        { "skill": "Enterprise Contract Negotiation", "priority": "important" }
+      ],
+      "education_fit": 90,
+      "experience_fit": 95,
+      "salary_range": {
+        "min": 50000,
+        "max": 150000
+      },
+      "demand_level": "very_high",
+      "why_good_fit": "7 years of consultative client-facing advisory experience with Salesforce CRM expertise positions you well for enterprise software and B2B corporate sales.",
+      "key_missing_areas": [
+        "B2B cold-to-close enterprise sales cycles",
+        "Territory quota planning and distributor management",
+        "Tender and RFP submission processes in Bangladesh"
+      ],
+      "learning_roadmap": [
+        "Master enterprise consultative selling frameworks (MEDDIC or SPIN Selling).",
+        "Acquire advanced Salesforce CRM Sales Cloud administrator credentials."
+      ],
+      "market_outlook_bd": "Rapidly expanding tech startups, telcos (Grameenphone, Robi), and multinational enterprises actively seek high-performing account executives.",
+      "application_links": {
+        "bdjobs": "https://bdjobs.com/jobsearch?keyword=Corporate%20Sales%20Executive",
+        "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=Business%20Development%20Executive&location=Bangladesh"
+      },
+      "active_jobs": [
+        {
+          "id": "job-sal-01",
+          "title": "Key Account Manager — Enterprise Solutions",
+          "company": "Grameenphone Ltd",
+          "location": "Bashundhara R/A, Dhaka",
+          "type": "Full-time",
+          "salary": "৳95,000 - ৳145,000 / month",
+          "experience": "5-7 years",
+          "deadline": "November 02, 2026",
+          "description": "Managing top corporate accounts, driving cloud and connectivity solution adoption, and quota delivery.",
+          "apply_url": "https://bdjobs.com/jobdetails?id=128501",
+          "company_url": "https://www.grameenphone.com"
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "category_id": "data-science-analytics",
+      "category_name": "Data Science & Business Analytics",
+      "match_percentage": 68,
+      "status": "Moderate Fit",
+      "matched_skills": [
+        "Excel",
+        "Salesforce",
+        "Financial Analysis",
+        "Strategic Planning"
+      ],
+      "missing_skills": [
+        { "skill": "SQL Querying", "priority": "critical" },
+        { "skill": "Power BI / Tableau", "priority": "critical" },
+        { "skill": "Python / Pandas", "priority": "critical" },
+        { "skill": "Data Modeling", "priority": "important" }
+      ],
+      "education_fit": 75,
+      "experience_fit": 95,
+      "salary_range": {
+        "min": 50000,
+        "max": 160000
+      },
+      "demand_level": "high",
+      "why_good_fit": "Strong quantitative baseline in portfolio metrics and Excel models provides a direct bridge to Business Intelligence and operations analytics.",
+      "key_missing_areas": [
+        "Relational database querying with SQL",
+        "Interactive dashboard authoring in Power BI or Tableau",
+        "Statistical programming with Python or R"
+      ],
+      "learning_roadmap": [
+        "Learn intermediate-to-advanced SQL for data aggregation and joins.",
+        "Create an interactive portfolio of Power BI financial dashboards.",
+        "Gain foundational exposure to Python data analysis libraries (Pandas, Matplotlib)."
+      ],
+      "market_outlook_bd": "Tremendous growth in fintech (bKash, Nagad), e-commerce (Daraz, Chaldal), and ride-sharing companies looking for data-driven business analysts.",
+      "application_links": {
+        "bdjobs": "https://bdjobs.com/jobsearch?keyword=Data%20Science%20%26%20Business%20Analytics",
+        "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=Business%20Analyst&location=Bangladesh"
+      },
+      "active_jobs": [
+        {
+          "id": "job-dat-01",
+          "title": "Lead Business Intelligence Analyst",
+          "company": "bKash Limited",
+          "location": "Tejgaon, Dhaka",
+          "type": "Full-time",
+          "salary": "৳90,000 - ৳150,000 / month",
+          "experience": "4-7 years",
+          "deadline": "November 05, 2026",
+          "description": "Translating merchant payment data into actionable strategic insights, building automated executive dashboards.",
+          "apply_url": "https://bdjobs.com/jobdetails?id=129400",
+          "company_url": "https://www.bkash.com"
+        }
+      ]
+    }
+  ]
+}

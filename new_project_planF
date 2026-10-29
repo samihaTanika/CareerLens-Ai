@@ -1,0 +1,627 @@
+# AI Resume Analyzer v2 — Revised Project Plan
+
+> **University Project — 3.2 Semester**
+> Revised: September 28, 2026
+
+---
+
+## 🎯 Project Vision
+
+**CareerLens AI** — Upload your CV, and our AI-powered system analyzes it using NLP, identifies your top 5 matching job categories in the Bangladesh market, shows detailed per-category analysis, and surfaces real job listings from BDJobs.com with application links, company info, and everything you need to land the job.
+
+### System Flow
+```
+User → Upload CV (PDF) → NLP Parsing & Analysis → AI Job Matching →
+→ Top 5 Job Categories Dashboard →
+  → Per-Category Analysis (skills match, gaps, recommendations)
+  → Per-Category Job Listings (scraped from BDJobs.com)
+  → Application Links, Company Info, Job Requirements
+→ Downloadable PDF Report
+→ Analysis History (saved to user account)
+```
+
+---
+
+## 📐 Architecture Overview
+
+```mermaid
+graph TB
+    subgraph Frontend ["Frontend - React + Vite"]
+        UI[React UI] --> Router[React Router]
+        Router --> Landing[Landing Page]
+        Router --> Auth[Auth Pages]
+        Router --> Upload[Upload Page]
+        Router --> Dashboard[Dashboard]
+        Router --> Category[Category Detail]
+        Router --> History[Analysis History]
+        Router --> Profile[User Profile]
+    end
+
+    subgraph Backend ["Backend - Python + FastAPI"]
+        API[FastAPI Server]
+        AuthService[Auth Service - JWT]
+        CVParser[CV Parser - PyMuPDF + spaCy]
+        NLPEngine[NLP Engine - spaCy + Transformers]
+        JobMatcher[Job Matching Engine]
+        Scraper[BDJobs Scraper - BeautifulSoup]
+        ReportGen[PDF Report Generator]
+    end
+
+    subgraph Database ["Database"]
+        PostgreSQL[(PostgreSQL)]
+        Redis[(Redis Cache)]
+    end
+
+    subgraph External ["External"]
+        BDJobs[BDJobs.com]
+        GeminiAPI[Google Gemini API]
+    end
+
+    UI -->|REST API| API
+    API --> AuthService
+    API --> CVParser
+    CVParser --> NLPEngine
+    NLPEngine --> JobMatcher
+    JobMatcher --> GeminiAPI
+    API --> Scraper
+    Scraper --> BDJobs
+    API --> ReportGen
+    AuthService --> PostgreSQL
+    NLPEngine --> PostgreSQL
+    Scraper --> Redis
+    JobMatcher --> PostgreSQL
+```
+
+---
+
+## 🛠 Technology Stack
+
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| **Frontend** | React 18 + Vite | UI Framework |
+| **Styling** | Tailwind CSS v3 | Utility-first CSS |
+| **Routing** | React Router v6 | Client-side navigation |
+| **State** | React Context + useReducer | Global state management |
+| **Charts** | Recharts / Chart.js | Data visualization |
+| **Backend** | Python 3.11 + FastAPI | REST API server |
+| **Auth** | JWT (PyJWT) + bcrypt | Authentication and sessions |
+| **CV Parsing** | PyMuPDF (fitz) | PDF text extraction |
+| **NLP** | spaCy (en_core_web_lg) | Named Entity Recognition, POS tagging, skill extraction |
+| **Embeddings** | sentence-transformers | Semantic similarity for job matching |
+| **AI Analysis** | Google Gemini API | Intelligent analysis, recommendations, category matching |
+| **Scraping** | BeautifulSoup4 + requests | BDJobs.com job listing scraper |
+| **Database** | PostgreSQL | User data, analysis history, job cache |
+| **Caching** | Redis | Scraped job listings cache (TTL-based) |
+| **PDF Reports** | ReportLab / WeasyPrint | Downloadable analysis reports |
+| **Deployment** | Docker + Docker Compose | Containerized deployment |
+
+---
+
+## 📁 Project Structure
+
+```
+AI-Resume-Analyzer/
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/                # Static assets (icons, images)
+│   │   ├── components/
+│   │   │   ├── common/            # Button, Card, Modal, Input, etc.
+│   │   │   ├── layout/            # Navbar, Footer, Sidebar
+│   │   │   ├── auth/              # LoginForm, RegisterForm
+│   │   │   ├── upload/            # CVUploader, UploadProgress
+│   │   │   ├── dashboard/         # ScoreCard, CategoryTabs, OverviewPanel
+│   │   │   ├── category/          # CategoryAnalysis, SkillComparison, JobListings
+│   │   │   └── history/           # HistoryTable, HistoryCard
+│   │   ├── pages/
+│   │   │   ├── LandingPage.jsx
+│   │   │   ├── LoginPage.jsx
+│   │   │   ├── RegisterPage.jsx
+│   │   │   ├── UploadPage.jsx
+│   │   │   ├── DashboardPage.jsx
+│   │   │   ├── CategoryDetailPage.jsx
+│   │   │   ├── HistoryPage.jsx
+│   │   │   └── ProfilePage.jsx
+│   │   ├── services/
+│   │   │   ├── api.js             # Axios instance and interceptors
+│   │   │   ├── authService.js     # Login, register, token refresh
+│   │   │   ├── analysisService.js # Upload CV, get analysis
+│   │   │   ├── jobService.js      # Fetch job listings per category
+│   │   │   └── mockService.js     # Mock data for dev (mirrors real API)
+│   │   ├── context/
+│   │   │   ├── AuthContext.jsx
+│   │   │   └── AnalysisContext.jsx
+│   │   ├── hooks/
+│   │   │   ├── useAuth.js
+│   │   │   ├── useAnalysis.js
+│   │   │   └── useJobs.js
+│   │   ├── utils/
+│   │   │   ├── validators.js
+│   │   │   ├── formatters.js
+│   │   │   └── constants.js
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   ├── package.json
+│   └── vite.config.js
+│
+├── backend/
+│   ├── app/
+│   │   ├── main.py                # FastAPI app entry
+│   │   ├── config.py              # Settings and env vars
+│   │   ├── database.py            # DB connection and session
+│   │   ├── models/
+│   │   │   ├── user.py            # User SQLAlchemy model
+│   │   │   ├── analysis.py        # Analysis result model
+│   │   │   └── job.py             # Cached job listing model
+│   │   ├── schemas/
+│   │   │   ├── user.py            # Pydantic schemas
+│   │   │   ├── analysis.py
+│   │   │   └── job.py
+│   │   ├── routers/
+│   │   │   ├── auth.py            # /auth/login, /auth/register
+│   │   │   ├── analysis.py        # /analyze, /analysis/id
+│   │   │   ├── jobs.py            # /jobs/category
+│   │   │   └── history.py         # /history
+│   │   ├── services/
+│   │   │   ├── cv_parser.py       # PDF text extraction
+│   │   │   ├── nlp_engine.py      # spaCy NLP pipeline
+│   │   │   ├── skill_extractor.py # Skill/keyword extraction
+│   │   │   ├── job_matcher.py     # Category matching logic
+│   │   │   ├── gemini_service.py  # Gemini API integration
+│   │   │   ├── scraper.py         # BDJobs scraper
+│   │   │   └── report_generator.py# PDF report generation
+│   │   ├── utils/
+│   │   │   ├── security.py        # JWT, password hashing
+│   │   │   └── helpers.py
+│   │   └── data/
+│   │       ├── skills_taxonomy.json   # Master skill list by domain
+│   │       └── job_categories.json    # BD market job categories
+│   ├── requirements.txt
+│   └── Dockerfile
+│
+├── docker-compose.yml
+├── .env.example
+├── .gitignore
+└── README.md
+```
+
+---
+
+## 🔑 Core Features — Detailed Specification
+
+### 1. User Authentication
+
+| Feature | Detail |
+|---------|--------|
+| **Register** | Name, Email, Password (hashed with bcrypt) |
+| **Login** | Email + Password → JWT access token (15min) + refresh token (7d) |
+| **Protected Routes** | Upload, Dashboard, History require auth |
+| **Session Persistence** | Tokens stored in httpOnly cookies or localStorage |
+| **Profile Page** | View/edit name, email; view analysis count |
+
+> [!NOTE]
+> Landing page is public. Auth is required only for the analyze flow onward.
+
+---
+
+### 2. CV Upload and Parsing
+
+| Feature | Detail |
+|---------|--------|
+| **Upload** | Drag-and-drop or click-to-browse, PDF only |
+| **Validation** | File type (PDF), max size (5MB), corruption check |
+| **Parsing** | PyMuPDF extracts text → cleaned and structured |
+| **NLP Processing** | spaCy pipeline: tokenization → POS tagging → NER → skill extraction |
+| **Extracted Data** | Personal info, education, experience, skills, certifications, projects |
+
+#### NLP Pipeline Detail
+```
+Raw PDF Text
+  → PyMuPDF text extraction
+  → Text cleaning (remove headers/footers, normalize whitespace)
+  → spaCy NLP processing
+    → Named Entity Recognition (names, organizations, dates, locations)
+    → Custom skill NER (trained on tech skills taxonomy)
+    → Experience duration calculation
+    → Education level detection
+  → Structured CV Profile Object
+```
+
+---
+
+### 3. AI-Powered Job Category Matching
+
+This is the **core innovation** of the project.
+
+#### How It Works
+
+1. **Skill Extraction**: NLP extracts skills, experience, education from CV
+2. **Category Mapping**: Skills are mapped against a **Bangladesh Job Market Taxonomy** (pre-built dataset of job categories and their required skills)
+3. **Semantic Matching**: sentence-transformers compute similarity between CV profile and each job category profile
+4. **AI Ranking**: Gemini API receives the CV summary + top candidate categories and returns:
+   - Final ranked top 5 categories
+   - Match percentage per category
+   - Reasoning for each match
+   - Skill gap analysis per category
+   - Personalized recommendations
+
+#### Bangladesh Job Market Taxonomy (Example)
+
+```json
+{
+  "categories": [
+    {
+      "id": "software-engineering",
+      "name": "Software Engineering",
+      "aliases": ["Software Developer", "Full Stack Developer", "Web Developer"],
+      "required_skills": ["JavaScript", "Python", "React", "Node.js", "SQL", "Git"],
+      "preferred_skills": ["Docker", "AWS", "TypeScript", "CI/CD"],
+      "education": ["CSE", "CS", "IT", "SWE"],
+      "experience_range": "0-10 years",
+      "avg_salary_range_bdt": "30,000 - 150,000"
+    },
+    {
+      "id": "data-science",
+      "name": "Data Science and Analytics",
+      "aliases": ["Data Analyst", "Data Scientist", "ML Engineer"],
+      "required_skills": ["Python", "SQL", "Statistics", "Machine Learning", "Pandas"],
+      "preferred_skills": ["TensorFlow", "Tableau", "Power BI", "Spark"],
+      "education": ["CSE", "Statistics", "Mathematics", "EEE"],
+      "experience_range": "0-8 years",
+      "avg_salary_range_bdt": "35,000 - 180,000"
+    }
+  ]
+}
+```
+
+> [!IMPORTANT]
+> We will build this taxonomy with 20-30 job categories relevant to the Bangladesh market, covering IT, Engineering, Business, Finance, Marketing, and more. The AI selects the top 5 from this pool.
+
+---
+
+### 4. Dashboard — Top 5 Categories Overview
+
+After analysis, the user sees a **dashboard** with:
+
+| Element | Description |
+|---------|-------------|
+| **Overall CV Score** | A composite score (0-100) of CV quality |
+| **Top 5 Category Cards** | Each shows: category name, match %, key matched skills (3-4), status badge (Excellent/Good/Fair) |
+| **Side-by-Side Comparison** | Radar chart or bar chart comparing all 5 categories across dimensions (skills match, education fit, experience fit) |
+| **Quick Stats** | Total skills found, total experience years, education level |
+
+#### Category Card (UI Concept)
+```
++-------------------------------------+
+|  #1  Software Engineering           |
+|  ████████████████████░░  85% Match  |
+|                                     |
+|  ✅ Python  ✅ React  ✅ SQL        |
+|  ❌ Docker  ❌ AWS                  |
+|                                     |
+|  12 available jobs  →  View Details |
++-------------------------------------+
+```
+
+---
+
+### 5. Category Detail Page (Per-Category Deep Dive)
+
+When the user clicks on a category, they see a **full analysis page** with:
+
+#### 5A. Analysis Tab
+| Element | Description |
+|---------|-------------|
+| **Match Score** | Overall match % with breakdown |
+| **Matched Skills** | Skills you have that this category needs (with proficiency indicator) |
+| **Missing Skills** | Skills you need to acquire (with priority: Critical / Important / Nice-to-have) |
+| **Skill Gap Roadmap** | Ordered learning path: what to learn first to last to become qualified |
+| **Education Fit** | How well your education matches |
+| **Experience Fit** | Whether your experience level matches typical requirements |
+| **AI Recommendations** | Personalized tips to improve your chances in this category |
+| **Keywords** | Important resume keywords for this category |
+
+#### 5B. Available Jobs Tab
+| Element | Description |
+|---------|-------------|
+| **Job Listings** | Real jobs scraped from BDJobs.com for this category |
+| **Per Job** | Job title, Company name, Company logo (if available), Location, Salary range, Experience required, Application deadline, Posted date |
+| **Job Description** | Full description, responsibilities, requirements |
+| **Apply Button** | Direct link to the BDJobs.com application page |
+| **Company Link** | Link to the company website |
+| **Match Indicator** | Per-job match % based on CV vs job requirements |
+| **Filters** | Filter by: Experience level, Location (Dhaka/Chittagong/Remote/etc.), Salary range, Posted date |
+
+#### 5C. Skill Gap Roadmap
+```
+Your Current Skills          Target Skills for "Software Engineering"
+-----------------           -----------------------------------------
+✅ Python (Expert)           ✅ Python — You have this
+✅ React (Intermediate)      ✅ React — You have this
+✅ SQL (Intermediate)        ✅ SQL — You have this
+❌ Docker                    🔴 Docker — CRITICAL: Learn this first
+❌ AWS                       🟡 AWS — IMPORTANT: Learn after Docker
+❌ TypeScript                🟢 TypeScript — NICE TO HAVE
+
+Recommended Learning Order:
+1. Docker (2-3 weeks) → Udemy/YouTube resources
+2. AWS Basics (3-4 weeks) → AWS Free Tier
+3. TypeScript (2 weeks) → Official docs
+```
+
+---
+
+### 6. BDJobs.com Scraper
+
+| Feature | Detail |
+|---------|--------|
+| **Target** | BDJobs.com — Bangladesh largest job portal |
+| **Method** | BeautifulSoup4 + requests with proper headers |
+| **Data Extracted** | Job title, company, location, salary, deadline, description, requirements, apply link, company URL |
+| **Caching** | Redis cache with 6-hour TTL (avoid excessive scraping) |
+| **Rate Limiting** | Max 1 request/second, respectful scraping with delays |
+| **Categories** | Map BDJobs categories to our taxonomy |
+| **Fallback** | If scraping fails, show cached results with "last updated" timestamp |
+
+> [!WARNING]
+> **Legal Consideration**: BDJobs.com robots.txt and Terms of Service must be checked. If scraping is restricted, we will implement one of these fallbacks:
+> - Use BDJobs RSS feeds (if available)
+> - Manual job data entry (for demo purposes)
+> - Use a proxy job search API
+>
+> For the university project demo, having a cached dataset of 100-200 real jobs is sufficient.
+
+---
+
+### 7. Downloadable PDF Report
+
+The user can download a comprehensive PDF report containing:
+
+1. **Cover page** — "Career Analysis Report" with user name, date
+2. **CV Summary** — Extracted skills, education, experience
+3. **Top 5 Categories** — Match percentages, analysis summary
+4. **Per-Category Breakdown** — Skills match, gaps, recommendations
+5. **Skill Gap Roadmap** — Full learning path across all categories
+6. **Available Jobs Summary** — Top 3 jobs per category with links
+
+---
+
+### 8. Analysis History
+
+| Feature | Detail |
+|---------|--------|
+| **Storage** | PostgreSQL — linked to user account |
+| **Per Entry** | Date, CV filename, top category, overall score, status |
+| **Actions** | View past analysis, re-analyze, delete, download report |
+| **Comparison** | Compare two past analyses side-by-side |
+
+---
+
+## 🔌 API Contract
+
+### Auth Endpoints
+```
+POST   /api/auth/register        — Create account
+POST   /api/auth/login            — Get JWT tokens
+POST   /api/auth/refresh          — Refresh access token
+GET    /api/auth/me               — Get current user profile
+PUT    /api/auth/me               — Update profile
+```
+
+### Analysis Endpoints
+```
+POST   /api/analyze               — Upload CV + run full analysis
+GET    /api/analysis/{id}         — Get specific analysis result
+GET    /api/analysis/{id}/report  — Download PDF report
+```
+
+### Job Endpoints
+```
+GET    /api/jobs/{category_id}              — Get job listings for category
+GET    /api/jobs/{category_id}/{job_id}     — Get specific job details
+```
+
+### History Endpoints
+```
+GET    /api/history               — Get user analysis history
+DELETE /api/history/{id}          — Delete a past analysis
+```
+
+### Example: POST /api/analyze Response
+```json
+{
+  "analysis_id": "a1b2c3d4",
+  "timestamp": "2026-09-28T14:30:00Z",
+  "cv_summary": {
+    "name": "Rafid Ahmed",
+    "email": "rafid@example.com",
+    "education": "BSc in CSE, BRAC University",
+    "experience_years": 1.5,
+    "total_skills_found": 18,
+    "extracted_skills": ["Python", "React", "JavaScript", "SQL", "Machine Learning"]
+  },
+  "overall_cv_score": 76,
+  "top_categories": [
+    {
+      "rank": 1,
+      "category_id": "software-engineering",
+      "category_name": "Software Engineering",
+      "match_percentage": 85,
+      "status": "Excellent",
+      "matched_skills": ["Python", "React", "JavaScript", "SQL", "Git"],
+      "missing_skills": [
+        {"skill": "Docker", "priority": "critical"},
+        {"skill": "AWS", "priority": "important"},
+        {"skill": "TypeScript", "priority": "nice_to_have"}
+      ],
+      "keywords": ["Full Stack", "REST API", "Agile", "CI/CD"],
+      "education_fit": 92,
+      "experience_fit": 70,
+      "recommendations": [
+        "Add Docker to your skill set — required in 80% of Software Engineering roles in BD",
+        "Quantify your project impact with metrics",
+        "Add a GitHub portfolio link to your CV"
+      ],
+      "skill_gap_roadmap": [
+        {"skill": "Docker", "estimated_weeks": 3, "resources": ["Docker official docs", "Udemy: Docker Mastery"]},
+        {"skill": "AWS", "estimated_weeks": 4, "resources": ["AWS Free Tier", "Coursera: AWS Fundamentals"]},
+        {"skill": "TypeScript", "estimated_weeks": 2, "resources": ["TypeScript handbook"]}
+      ],
+      "available_jobs_count": 15
+    },
+    {
+      "rank": 2,
+      "category_id": "data-science",
+      "category_name": "Data Science and Analytics",
+      "match_percentage": 72,
+      "status": "Good"
+    }
+  ]
+}
+```
+
+### Example: GET /api/jobs/{category_id} Response
+```json
+{
+  "category_id": "software-engineering",
+  "category_name": "Software Engineering",
+  "total_jobs": 15,
+  "last_scraped": "2026-09-28T12:00:00Z",
+  "jobs": [
+    {
+      "job_id": "bdj-12345",
+      "title": "Junior Software Engineer",
+      "company": "Brain Station 23",
+      "company_website": "https://brainstation-23.com",
+      "location": "Dhaka, Bangladesh",
+      "salary_range": "40,000 - 60,000 BDT",
+      "experience_required": "0-2 years",
+      "education_required": "BSc in CSE/IT/SWE",
+      "posted_date": "2026-09-25",
+      "deadline": "2026-10-15",
+      "job_type": "Full-time",
+      "description": "We are looking for a passionate junior developer...",
+      "responsibilities": ["Develop web applications", "Write clean code"],
+      "requirements": ["JavaScript", "React", "Node.js", "Git"],
+      "benefits": ["Health insurance", "Flexible hours"],
+      "apply_url": "https://bdjobs.com/apply/12345",
+      "source": "bdjobs.com",
+      "match_with_cv": 78
+    }
+  ]
+}
+```
+
+---
+
+## 📅 Development Phases
+
+### Phase 1: Frontend Foundation (Week 1-2)
+- [x] Project setup (React + Vite) — Already done
+- [ ] Rebuild with new design system for CareerLens AI
+- [ ] Landing page (new branding, new value proposition)
+- [ ] Auth pages (Login, Register)
+- [ ] Upload page (CV-only, no job description needed now)
+- [ ] Dashboard layout with category tabs
+- [ ] Category detail page layout
+- [ ] History page layout
+- [ ] Profile page
+- [ ] All pages use mock data
+
+### Phase 2: Backend Core (Week 3-4)
+- [ ] FastAPI project setup
+- [ ] PostgreSQL database + models (User, Analysis, Job)
+- [ ] Auth system (register, login, JWT)
+- [ ] CV upload endpoint + file storage
+- [ ] Basic CV text extraction (PyMuPDF)
+
+### Phase 3: NLP Engine (Week 5-6)
+- [ ] spaCy pipeline setup
+- [ ] Skill extraction (custom NER or rule-based)
+- [ ] Education and experience parsing
+- [ ] Build Bangladesh Job Market Taxonomy (20-30 categories)
+- [ ] Skill-to-category mapping engine
+- [ ] Semantic similarity matching (sentence-transformers)
+
+### Phase 4: AI Integration (Week 7-8)
+- [ ] Gemini API integration
+- [ ] Prompt engineering for job category ranking
+- [ ] Per-category analysis generation
+- [ ] Skill gap roadmap generation
+- [ ] Recommendation engine
+- [ ] Connect NLP + AI to produce final analysis
+
+### Phase 5: Job Scraper (Week 8-9)
+- [ ] BDJobs.com scraper (BeautifulSoup)
+- [ ] Job data model and storage
+- [ ] Redis caching layer
+- [ ] Category-to-BDJobs mapping
+- [ ] Per-job match scoring against CV
+- [ ] Scraper scheduling (run every 6 hours)
+
+### Phase 6: Integration and Polish (Week 9-10)
+- [ ] Connect frontend to real backend APIs
+- [ ] PDF report generation
+- [ ] Side-by-side category comparison
+- [ ] Skill gap roadmap visualization
+- [ ] Error handling and edge cases
+- [ ] Loading states and animations
+- [ ] Responsive design polish
+
+### Phase 7: Testing and Deployment (Week 11-12)
+- [ ] End-to-end testing
+- [ ] Docker containerization
+- [ ] Deploy (Railway / Render / VPS)
+- [ ] Final documentation
+- [ ] Demo preparation
+
+---
+
+## 🛡 Edge Cases and Error Handling
+
+| Scenario | Handling |
+|----------|----------|
+| CV is a scanned image (not text PDF) | Detect low text extraction, show error "Please upload a text-based PDF" |
+| CV has no relevant skills | Show analysis with low scores + recommend skill-building resources |
+| BDJobs scraper fails | Fall back to cached data, show "last updated" timestamp |
+| BDJobs has no jobs for a category | Show "No current openings — check back later" + suggest alternative categories |
+| User uploads non-PDF | Client-side validation rejects before upload |
+| Very short CV (under 50 words extracted) | Show warning "CV seems too short for meaningful analysis" |
+| Network error during analysis | Retry mechanism + clear error message |
+| Gemini API rate limit hit | Queue request + show "Analysis in progress, please wait" |
+
+---
+
+## 🔬 What Makes This a Strong University Project
+
+1. **NLP Pipeline** — Real text processing, not just API calls
+2. **AI Integration** — Gemini API for intelligent analysis
+3. **Web Scraping** — Real-time job data from BDJobs.com
+4. **Full Stack** — React frontend + FastAPI backend + PostgreSQL
+5. **Auth System** — JWT-based user management
+6. **Semantic Matching** — sentence-transformers for job-CV similarity
+7. **Data Visualization** — Charts, comparisons, roadmaps
+8. **PDF Generation** — Downloadable professional reports
+9. **Caching** — Redis for performance optimization
+10. **Containerization** — Docker for deployment
+
+---
+
+## ⚡ Key Differences from Old Plan
+
+| Old Plan | New Plan |
+|----------|----------|
+| User provides job description manually | System automatically finds matching categories |
+| Single analysis result | 5 category-specific analyses |
+| Generic ATS scoring | Bangladesh market-specific matching |
+| No real job data | Real jobs scraped from BDJobs.com |
+| No authentication | Full auth with history |
+| Static recommendations | AI-powered skill gap roadmaps |
+| One-dimensional analysis | Multi-dimensional (skills + education + experience per category) |
+
+---
+
+## 🚀 Next Step
+
+**Rebuild the frontend** with the new design, pages, and mock data structure to match this plan. The existing frontend needs significant changes to support the category-based dashboard, auth pages, and job listings views.
