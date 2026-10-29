@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useKeepAlive } from '../context/KeepAliveContext';
+import { useChat } from '../context/ChatContext';
 import CareerLensLogo from './CareerLensLogo';
 
 const studentLinks = [
@@ -30,6 +31,7 @@ const publicLinks = [
 export default function Navbar() {
   const { user, isAuthenticated, isCompany, logout } = useAuth();
   const { status, latencyMs } = useKeepAlive();
+  const { openChat } = useChat();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = isAuthenticated
@@ -69,6 +71,19 @@ export default function Navbar() {
                 {link.label}
               </NavLink>
             ))}
+
+            {/* Desktop AI Assistant Option */}
+            <button
+              type="button"
+              onClick={openChat}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-bold text-[var(--color-accent-primary)] hover:bg-indigo-50/90 transition-all cursor-pointer border border-indigo-200/60 shadow-2xs"
+              title="Chat with CareerLens AI Assistant"
+              id="nav-ai-chat"
+            >
+              <span>🤖</span>
+              <span>AI Chat</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            </button>
           </div>
 
           {/* Desktop Auth / CTA */}
@@ -151,9 +166,20 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Right Controls: Status & Hamburger */}
-          <div className="flex lg:hidden items-center gap-2">
+          <div className="flex lg:hidden items-center gap-1.5 sm:gap-2">
+            {/* Direct Mobile Chat Trigger */}
+            <button
+              type="button"
+              onClick={openChat}
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-indigo-50 text-[var(--color-accent-primary)] border border-indigo-200 shadow-2xs active:scale-95 transition-all cursor-pointer"
+              title="Open AI Career Assistant"
+            >
+              <span>🤖</span>
+              <span>AI Chat</span>
+            </button>
+
             <div
-              className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border transition-all ${
+              className={`hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border transition-all ${
                 status === 'online'
                   ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
                   : 'bg-amber-50 text-amber-800 border-amber-200'
@@ -166,7 +192,7 @@ export default function Navbar() {
                     : 'bg-amber-500 animate-ping'
                 }`}
               />
-              <span>{status === 'online' ? 'Cloud Active' : 'Waking...'}</span>
+              <span>{status === 'online' ? 'Active' : 'Waking...'}</span>
             </div>
 
             <button
@@ -197,7 +223,30 @@ export default function Navbar() {
 
       {/* Mobile Menu Dropdown */}
       {mobileOpen && (
-        <div className="lg:hidden border-b border-slate-200 bg-white px-4 py-4 space-y-1 shadow-lg">
+        <div className="lg:hidden border-b border-slate-200 bg-white px-4 py-4 space-y-2 shadow-lg animate-fade-in">
+          {/* Featured AI Assistant Option in Mobile Menu */}
+          <button
+            type="button"
+            onClick={() => {
+              setMobileOpen(false);
+              openChat();
+            }}
+            className="w-full flex items-center justify-between p-3 rounded-2xl bg-gradient-to-r from-indigo-50 via-sky-50 to-emerald-50 border border-indigo-200 text-left transition-all shadow-xs active:scale-98 cursor-pointer mb-2"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl gradient-bg text-white flex items-center justify-center text-lg shadow-xs shrink-0">
+                🤖
+              </div>
+              <div>
+                <div className="text-sm font-bold text-slate-900">AI Career Assistant</div>
+                <div className="text-xs text-slate-500">Instant answers on CV, jobs & scholarships</div>
+              </div>
+            </div>
+            <span className="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-[var(--color-accent-primary)] text-white shadow-2xs shrink-0">
+              Chat ↗
+            </span>
+          </button>
+
           {navLinks.map((link) => (
             <NavLink
               key={link.to}
@@ -205,7 +254,7 @@ export default function Navbar() {
               end={link.to === '/'}
               onClick={() => setMobileOpen(false)}
               className={({ isActive }) =>
-                `block px-3.5 py-2 rounded-xl text-sm font-semibold transition-colors ${
+                `block px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
                   isActive
                     ? 'text-[var(--color-accent-primary)] bg-indigo-50 font-bold'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'

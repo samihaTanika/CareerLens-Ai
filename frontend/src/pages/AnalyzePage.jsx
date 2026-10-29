@@ -89,7 +89,7 @@ export default function AnalyzePage() {
         </div>
 
         {/* Upload Card */}
-        <Card className="p-8 sm:p-10 mb-8 border border-slate-200/90 shadow-sm relative overflow-hidden bg-white">
+        <Card className="p-5 sm:p-8 md:p-10 mb-8 border border-slate-200/90 shadow-sm relative overflow-hidden bg-white">
           <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-100 pb-5">
             <div>
               <h2 className="text-xl font-bold text-slate-900">Upload Your Resume (PDF)</h2>

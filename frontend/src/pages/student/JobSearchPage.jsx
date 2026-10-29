@@ -71,11 +71,11 @@ export default function JobSearchPage() {
                 {jobs.length} verified positions available{userSkills.length > 0 ? ' • Ranked by your CV match score' : ''}
               </p>
             </div>
-            <div className="flex items-center gap-2.5">
-              <Button variant="secondary" size="sm" to="/jobs/remote">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+              <Button variant="secondary" size="sm" to="/jobs/remote" className="text-xs sm:text-sm">
                 🌍 Remote Worldwide
               </Button>
-              <Button variant="secondary" size="sm" to="/scholarships">
+              <Button variant="secondary" size="sm" to="/scholarships" className="text-xs sm:text-sm">
                 🎓 Higher Study Scholarships
               </Button>
             </div>

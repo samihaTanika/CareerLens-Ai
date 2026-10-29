@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useChat } from '../context/ChatContext';
 import { mockAnalysisResult } from '../data/mockAnalysis';
 import { mockJobs } from '../data/mockJobs';
 import { mockScholarships } from '../data/mockScholarships';
 
 export default function ChatBot() {
   const { user } = useAuth();
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, openChat, closeChat } = useChat();
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
@@ -294,21 +295,21 @@ Feel free to ask me specifically about:
 
   return (
     <>
-      {/* Floating Launcher Button */}
+      {/* Floating Launcher Button — Elevated above Netlify badge */}
       {!isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 animate-fade-in">
+        <div className="fixed bottom-24 sm:bottom-24 right-4 sm:right-6 z-40 flex items-center gap-3 animate-fade-in">
           <div className="hidden sm:flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-full shadow-lg border border-indigo-100 text-xs font-bold text-slate-700 animate-bounce">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span>Chat with Career AI</span>
           </div>
           <button
             type="button"
-            onClick={() => setIsOpen(true)}
-            className="w-14 h-14 rounded-full gradient-bg text-white shadow-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer border-2 border-white/80"
+            onClick={openChat}
+            className="w-13 h-13 sm:w-14 sm:h-14 rounded-full gradient-bg text-white shadow-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer border-2 border-white/80"
             aria-label="Open CareerLens AI Assistant"
             id="chatbot-launcher"
           >
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
               <circle cx="9" cy="10" r="1" fill="currentColor" />
               <circle cx="15" cy="10" r="1" fill="currentColor" />
@@ -317,47 +318,55 @@ Feel free to ask me specifically about:
         </div>
       )}
 
-      {/* Expanded Chat Drawer / Window */}
+      {/* Expanded Chat Drawer / Window — Responsive Mobile-First & Desktop */}
       {isOpen && (
-        <div className="fixed bottom-4 sm:bottom-6 right-3 sm:right-6 z-50 w-[380px] sm:w-[440px] max-w-[95vw] h-[600px] max-h-[88vh] bg-white rounded-3xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-fade-in-up">
-          {/* Header */}
-          <div className="gradient-bg p-4 flex items-center justify-between text-white shrink-0 shadow-xs">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-lg font-extrabold border border-white/20 shadow-2xs">
-                🤖
-              </div>
-              <div>
-                <h3 className="font-extrabold text-sm sm:text-base leading-snug">CareerLens AI</h3>
-                <div className="flex items-center gap-1.5 text-[11px] text-indigo-100 font-medium">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>Online • Context Synced</span>
+        <>
+          {/* Backdrop on mobile */}
+          <div
+            className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 sm:hidden animate-fade-in"
+            onClick={closeChat}
+            aria-hidden="true"
+          />
+
+          <div className="fixed inset-x-2 bottom-2 top-16 sm:inset-auto sm:bottom-6 sm:right-6 z-50 w-auto sm:w-[440px] h-[calc(100dvh-72px)] sm:h-[600px] max-h-[94dvh] bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-fade-in-up">
+            {/* Header */}
+            <div className="gradient-bg p-3.5 sm:p-4 flex items-center justify-between text-white shrink-0 shadow-xs">
+              <div className="flex items-center gap-2.5 sm:gap-3">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-lg font-extrabold border border-white/20 shadow-2xs">
+                  🤖
+                </div>
+                <div>
+                  <h3 className="font-extrabold text-sm sm:text-base leading-snug">CareerLens AI</h3>
+                  <div className="flex items-center gap-1.5 text-[11px] text-indigo-100 font-medium">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>Online • Context Synced</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="flex items-center gap-1">
-              <button
-                type="button"
-                onClick={() => setMessages([initialGreeting])}
-                className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer text-xs font-semibold"
-                title="Clear conversation"
-              >
-                Clear
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsOpen(false)}
-                className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
-                title="Minimize chat"
-                aria-label="Close chat"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => setMessages([initialGreeting])}
+                  className="px-2 py-1 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer text-xs font-semibold"
+                  title="Clear conversation"
+                >
+                  Clear
+                </button>
+                <button
+                  type="button"
+                  onClick={closeChat}
+                  className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                  title="Minimize chat"
+                  aria-label="Close chat"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+              </div>
             </div>
-          </div>
 
           {/* Quick Context Pill */}
           <div className="bg-indigo-50/70 border-b border-indigo-100/80 px-4 py-2 flex items-center justify-between text-[11px] text-slate-600 font-medium shrink-0">
@@ -442,7 +451,7 @@ Feel free to ask me specifically about:
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask anything about your CV, jobs, scholarships..."
-              className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm placeholder:text-slate-400 focus:border-[var(--color-accent-primary)] focus:bg-white focus:ring-1 focus:ring-[var(--color-accent-primary)] transition-all"
+              className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-base sm:text-sm placeholder:text-slate-400 focus:border-[var(--color-accent-primary)] focus:bg-white focus:ring-1 focus:ring-[var(--color-accent-primary)] transition-all"
             />
             <button
               type="submit"
@@ -457,8 +466,9 @@ Feel free to ask me specifically about:
             </button>
           </form>
         </div>
-      )}
-    </>
-  );
+      </>
+    )}
+  </>
+);
 }
 

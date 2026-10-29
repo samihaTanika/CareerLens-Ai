@@ -335,7 +335,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Sub-Navigation Tabs */}
-          <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+          <div className="flex items-center gap-2 border-b border-slate-100 pb-3 overflow-x-auto scrollbar-none flex-nowrap">
             {[
               { id: 'overview', label: '📊 Overview & Salary Fit' },
               { id: 'skills', label: '⚡ Skills Gap & Roadmap' },
@@ -345,7 +345,7 @@ export default function DashboardPage() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border ${
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border whitespace-nowrap shrink-0 ${
                   activeTab === tab.id
                     ? 'bg-indigo-50 text-[var(--color-accent-primary)] border-indigo-200 shadow-2xs'
                     : 'bg-white text-slate-600 border-transparent hover:bg-slate-50'
