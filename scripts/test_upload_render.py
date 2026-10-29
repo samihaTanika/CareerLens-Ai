@@ -49,3 +49,4 @@ except urllib.error.HTTPError as e:
     print(f"HTTP Error {e.code}: {e.read().decode('utf-8', errors='ignore')}")
 except Exception as e:
     print(f"Error: {e}")
+

@@ -59,3 +59,4 @@ try:
         print(f"Chatbot endpoint: {res.status} OK in {time.time()-t0:.2f}s -> Response length: {len(reply)} chars")
 except Exception as e:
     print(f"Chatbot endpoint failed: {e}")
+
