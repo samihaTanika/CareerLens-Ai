@@ -7,7 +7,7 @@
 
 import { mockAnalysisResult, mockHistoryRecords, getMockAnalysisById } from '../data/mockAnalysis';
 
-const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+const BACKEND_URL = import.meta.env.VITE_API_URL || 'https://careerlens-backend-gy5k.onrender.com';
 
 function delay(ms = 1500) {
   return new Promise((resolve) => setTimeout(resolve, ms));

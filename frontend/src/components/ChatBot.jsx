@@ -65,7 +65,7 @@ How can I help you today? You can choose a quick question below or ask anything!
 
     try {
       // Attempt backend API first
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://careerlens-backend-gy5k.onrender.com';
       const res = await fetch(`${apiUrl}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
