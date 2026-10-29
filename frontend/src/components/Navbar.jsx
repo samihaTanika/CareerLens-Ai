@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useKeepAlive } from '../context/KeepAliveContext';
+import CareerLensLogo from './CareerLensLogo';
 
 const studentLinks = [
   { to: '/', label: 'Home' },
@@ -42,13 +43,8 @@ export default function Navbar() {
       <div className="page-container">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5 no-underline" id="nav-logo">
-            <div className="w-8 h-8 rounded-xl gradient-bg flex items-center justify-center shadow-xs shadow-indigo-500/20">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-            </div>
+          <Link to="/" className="flex items-center gap-2.5 no-underline group" id="nav-logo">
+            <CareerLensLogo className="w-8 h-8 transition-transform duration-200 group-hover:scale-105 drop-shadow-xs" />
             <span className="text-base font-bold text-slate-900 tracking-tight">
               CareerLens <span className="gradient-text font-extrabold">AI</span>
             </span>

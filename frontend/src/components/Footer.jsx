@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import CareerLensLogo from './CareerLensLogo';
 
 export default function Footer() {
   return (
@@ -7,13 +8,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="space-y-4">
-            <Link to="/" className="flex items-center gap-2.5 no-underline">
-              <div className="w-8 h-8 rounded-xl gradient-bg flex items-center justify-center shadow-xs shadow-indigo-500/20">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="11" cy="11" r="8" />
-                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                </svg>
-              </div>
+            <Link to="/" className="flex items-center gap-2.5 no-underline group">
+              <CareerLensLogo className="w-8 h-8 transition-transform duration-200 group-hover:scale-105 drop-shadow-xs" />
               <span className="text-base font-bold text-slate-900 tracking-tight">
                 CareerLens <span className="gradient-text font-extrabold">AI</span>
               </span>

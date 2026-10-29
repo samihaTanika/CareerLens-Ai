@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/Card';
+import CareerLensLogo from '../../components/CareerLensLogo';
 
 export default function LoginPage() {
   const { login, loginWithLinkedIn } = useAuth();
@@ -47,12 +48,7 @@ export default function LoginPage() {
     <div className="min-h-screen pt-28 pb-20 flex items-center justify-center bg-[var(--color-bg-primary)]">
       <div className="page-container max-w-md w-full mx-auto">
         <div className="text-center mb-8 animate-fade-in">
-          <div className="w-12 h-12 rounded-2xl gradient-bg flex items-center justify-center mx-auto mb-4 shadow-sm shadow-indigo-500/20">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-          </div>
+          <CareerLensLogo className="w-14 h-14 mx-auto mb-4 drop-shadow-md" />
           <h1 className="text-3xl font-extrabold text-slate-900 mb-2 tracking-tight">
             Welcome Back
           </h1>
