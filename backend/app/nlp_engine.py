@@ -233,9 +233,43 @@ def match_cv_to_categories(profile: Dict[str, Any], categories: List[Dict[str, A
         linkedin_url = f"https://www.linkedin.com/jobs/search/?keywords={search_query}&location=Bangladesh"
         teletalk_url = "http://alljobs.teletalk.com.bd" if "govt" in cat_id or "cadre" in cat_id or "bank" in cat_id else None
 
+        employers = cat.get("typical_employers", [])
+        emp1 = employers[0] if employers else "Leading Organization in Bangladesh"
+        emp2 = employers[1] if len(employers) > 1 else "Reputed Enterprise in Dhaka"
+        salary_min = cat.get("avg_salary_bdt", {}).get("min", 35000)
+        salary_max = cat.get("avg_salary_bdt", {}).get("max", 90000)
+        is_govt = cat.get("is_government", False) or "cadre" in cat_id or "govt" in cat_id
+
+        active_jobs = [
+            {
+                "id": f"job-{cat_id}-01",
+                "title": f"Officer / Executive — {cat.get('name')}",
+                "company": emp1,
+                "location": "Dhaka, Bangladesh",
+                "type": "Full-time",
+                "salary": f"৳{salary_min:,} - ৳{salary_max:,} / month",
+                "deadline": "Rolling Applications",
+                "description": f"Lead functional initiatives and operations at {emp1}. Requires competencies in {', '.join(req_skills[:3]) if req_skills else 'core domain practices'}.",
+                "apply_url": teletalk_url if is_govt and teletalk_url else bdjobs_url
+            },
+            {
+                "id": f"job-{cat_id}-02",
+                "title": f"Specialist / Assistant Manager — {cat.get('name')}",
+                "company": emp2,
+                "location": "Dhaka / Division Headquarters",
+                "type": "Full-time",
+                "salary": f"৳{int(salary_min * 1.15):,} - ৳{int(salary_max * 1.2):,} / month",
+                "deadline": "30 Days from Publication",
+                "description": f"Strategic opportunity at {emp2} focusing on industry execution and compliance.",
+                "apply_url": bdjobs_url
+            }
+        ]
+
         scored.append({
             "category_id": cat_id,
             "category_name": cat.get("name", ""),
+            "sector": cat.get("sector", "Government & Public Sector" if is_govt else "Private Sector"),
+            "is_government": is_govt,
             "match_percentage": final_score,
             "status": status,
             "matched_skills": all_matched,
@@ -252,7 +286,8 @@ def match_cv_to_categories(profile: Dict[str, Any], categories: List[Dict[str, A
                 "bdjobs": bdjobs_url,
                 "linkedin_bd": linkedin_url,
                 "govt_portal": teletalk_url
-            }
+            },
+            "active_jobs": active_jobs
         })
 
     # Sort and rank top N (up to 20)

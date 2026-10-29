@@ -2,14 +2,22 @@
 CareerLens AI — FastAPI Backend Server
 Provides REST endpoints for CV upload, NLP skill extraction,
 top 20 Bangladesh job matching, study abroad scholarships, and AI career chatbot.
+Includes automated keep-alive heartbeat to prevent cloud dormancy.
 """
 
 import os
+import json
+import time
+import asyncio
+import urllib.request
 from fastapi import FastAPI, File, UploadFile, HTTPException, Body
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
 from .nlp_engine import analyze_cv_complete, generate_chat_response, job_categories, skills_taxonomy
+
+START_TIME = time.time()
+PUBLIC_BACKEND_URL = os.environ.get("RENDER_EXTERNAL_URL", "https://careerlens-backend-gy5k.onrender.com")
 
 app = FastAPI(
     title="CareerLens AI API",
@@ -27,6 +35,35 @@ app.add_middleware(
 )
 
 
+async def keep_alive_background_loop():
+    """
+    Self-ping background worker that sends a keep-alive HTTP GET request
+    to the public Render service URL every 10 seconds.
+    This keeps the Render edge routing active and prevents the free tier service from sleeping.
+    """
+    await asyncio.sleep(5)  # Initial delay for server startup
+    loop = asyncio.get_event_loop()
+
+    while True:
+        try:
+            target_url = f"{PUBLIC_BACKEND_URL}/api/health"
+            req = urllib.request.Request(
+                target_url,
+                headers={"User-Agent": "CareerLens-Heartbeat-Pinger/1.0"}
+            )
+            # Run blocking request in threadpool executor so asyncio loop is never blocked
+            await loop.run_in_executor(None, lambda: urllib.request.urlopen(req, timeout=8))
+        except Exception:
+            pass  # Resilient to transient network glitches
+        await asyncio.sleep(10)  # Ping every 10 seconds as requested
+
+
+@app.on_event("startup")
+async def on_startup():
+    """Start automated self-ping heartbeat upon server startup."""
+    asyncio.create_task(keep_alive_background_loop())
+
+
 class ChatRequest(BaseModel):
     message: str
     history: Optional[List[Dict[str, str]]] = None
@@ -38,10 +75,12 @@ def root():
     return {
         "status": "online",
         "service": "CareerLens AI Backend",
+        "uptime_seconds": int(time.time() - START_TIME),
         "categories_loaded": len(job_categories),
         "skills_taxonomy_categories": len(skills_taxonomy),
         "endpoints": [
             "/api/health",
+            "/api/ping",
             "/api/analyze",
             "/api/categories",
             "/api/scholarships",
@@ -52,11 +91,16 @@ def root():
 
 
 @app.get("/api/health")
+@app.get("/api/ping")
 def health():
+    """Heartbeat endpoint for keep-alive pings."""
     return {
         "status": "healthy",
+        "service": "CareerLens AI Cloud Engine",
+        "uptime_seconds": int(time.time() - START_TIME),
         "categories_count": len(job_categories),
-        "skills_taxonomy_count": len(skills_taxonomy)
+        "skills_taxonomy_count": len(skills_taxonomy),
+        "timestamp": time.time()
     }
 
 
@@ -72,7 +116,7 @@ def get_demo_analysis():
 
 @app.get("/api/categories")
 def get_categories():
-    """Returns all 40+ Bangladesh job market taxonomy categories (Government + Private)."""
+    """Returns all 80+ Bangladesh job market taxonomy categories (Government + Private)."""
     return {"total": len(job_categories), "categories": job_categories}
 
 
@@ -104,7 +148,7 @@ async def chat_endpoint(request: ChatRequest):
 async def analyze_cv(file: UploadFile = File(...)):
     """
     Accepts a CV in PDF format and runs the complete 7-stage NLP & AI pipeline.
-    Returns: Top 20 matched categories with roadmaps, BDJobs application links, and matched scholarships.
+    Returns: Top 20 matched categories with roadmaps, BDJobs application links, active jobs, and matched scholarships.
     """
     if not file.filename.lower().endswith(".pdf"):
         raise HTTPException(status_code=400, detail="Only PDF files are supported.")

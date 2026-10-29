@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useKeepAlive } from '../context/KeepAliveContext';
 
 const studentLinks = [
   { to: '/', label: 'Home' },
@@ -27,6 +28,7 @@ const publicLinks = [
 
 export default function Navbar() {
   const { user, isAuthenticated, isCompany, logout } = useAuth();
+  const { status, latencyMs } = useKeepAlive();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = isAuthenticated
@@ -75,6 +77,25 @@ export default function Navbar() {
 
           {/* Desktop Auth / CTA */}
           <div className="hidden lg:flex items-center gap-2.5">
+            {/* Live Cloud Backend Status Badge */}
+            <div
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-all ${
+                status === 'online'
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                  : 'bg-amber-50 text-amber-800 border-amber-200'
+              }`}
+              title={status === 'online' ? `CareerLens AI Cloud Backend is active (${latencyMs || 100}ms, keep-alive every 10s)` : 'Waking CareerLens Cloud Engine on Render...'}
+            >
+              <span
+                className={`w-2 h-2 rounded-full ${
+                  status === 'online'
+                    ? 'bg-emerald-600 animate-pulse'
+                    : 'bg-amber-500 animate-ping'
+                }`}
+              />
+              <span>{status === 'online' ? 'Cloud AI Online' : 'Waking Cloud AI...'}</span>
+            </div>
+
             {isAuthenticated ? (
               <>
                 {/* Profile / Dashboard Link */}
@@ -133,29 +154,48 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile Hamburger */}
-          <button
-            type="button"
-            className="lg:hidden p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle navigation menu"
-            id="nav-mobile-toggle"
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              {mobileOpen ? (
-                <>
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </>
-              ) : (
-                <>
-                  <line x1="3" y1="12" x2="21" y2="12" />
-                  <line x1="3" y1="6" x2="21" y2="6" />
-                  <line x1="3" y1="18" x2="21" y2="18" />
-                </>
-              )}
-            </svg>
-          </button>
+          {/* Mobile Right Controls: Status & Hamburger */}
+          <div className="flex lg:hidden items-center gap-2">
+            <div
+              className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border transition-all ${
+                status === 'online'
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                  : 'bg-amber-50 text-amber-800 border-amber-200'
+              }`}
+            >
+              <span
+                className={`w-1.5 h-1.5 rounded-full ${
+                  status === 'online'
+                    ? 'bg-emerald-600 animate-pulse'
+                    : 'bg-amber-500 animate-ping'
+                }`}
+              />
+              <span>{status === 'online' ? 'Cloud Active' : 'Waking...'}</span>
+            </div>
+
+            <button
+              type="button"
+              className="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle navigation menu"
+              id="nav-mobile-toggle"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                {mobileOpen ? (
+                  <>
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </>
+                ) : (
+                  <>
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                  </>
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 
