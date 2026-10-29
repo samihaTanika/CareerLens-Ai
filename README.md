@@ -18,7 +18,7 @@
 - **Top 20 Sector Matching**: View your initial Top 5 career matches with a 1-click toggle to inspect your complete Top 20 ranked sectors with explainable match percentages.
 - **AI Career Assistant Chatbot**: Global floating mentor answering queries on CV optimization, civil service eligibility, BCS vs corporate trade-offs, and study abroad requirements.
 - **22+ Verified Global Scholarships**: Curated directory of fully-funded Masters & PhD opportunities (Chevening, Fulbright, DAAD, Commonwealth, MEXT, Australia Awards, Sweden SISGP) with verified GPA and work experience criteria.
-- **Direct Verified Job Portals**: Working, clean application links to modern **BDJobs** (`https://bdjobs.com/jobsearch?keyword={query}`), **Teletalk AllJobs** (`http://alljobs.teletalk.com.bd`), and **LinkedIn Bangladesh**.
+- **Direct Verified Job Portals**: Working, clean application links to modern **BDJobs** (`https://bdjobs.com/h/jobs/?txtKeyword={query}`), **Teletalk AllJobs** (`http://alljobs.teletalk.com.bd`), and **LinkedIn Bangladesh**.
 - **Interactive Student Tools**: ATS CV score analyzer, skill gap visualization, salary benchmarks (BDT & USD), and LinkedIn profile synchronization.
 
 ---

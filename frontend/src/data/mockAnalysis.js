@@ -107,7 +107,7 @@ export const mockAnalysisResult = {
         "Train on Finacle or Temenos T24 core banking transaction workflows."
       ],
       "application_links": {
-        "bdjobs": "https://bdjobs.com/jobsearch?keyword=bank+relationship+manager",
+        "bdjobs": "https://bdjobs.com/h/jobs/?txtKeyword=bank%20relationship%20manager",
         "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=Banking%20Relationship%20Manager&location=Bangladesh"
       },
       "active_jobs": [
@@ -351,7 +351,7 @@ export const mockAnalysisResult = {
         "Study RFP response writing for major Bangladesh corporate conglomerates."
       ],
       "application_links": {
-        "bdjobs": "https://bdjobs.com/jobsearch?keyword=business+development+manager",
+        "bdjobs": "https://bdjobs.com/h/jobs/?txtKeyword=business%20development%20manager",
         "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=Business%20Development%20Manager&location=Bangladesh"
       },
       "active_jobs": [
@@ -404,7 +404,7 @@ export const mockAnalysisResult = {
         "Master commercial L/C terms (Incoterms 2020) and customs bond license management."
       ],
       "application_links": {
-        "bdjobs": "https://bdjobs.com/jobsearch?keyword=supply+chain+manager",
+        "bdjobs": "https://bdjobs.com/h/jobs/?txtKeyword=supply%20chain%20manager",
         "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=Supply%20Chain%20Manager&location=Bangladesh"
       },
       "active_jobs": []
@@ -445,7 +445,7 @@ export const mockAnalysisResult = {
         "Study Bangladesh Labor Law statutory compliance, gratuity, and provident fund rules."
       ],
       "application_links": {
-        "bdjobs": "https://bdjobs.com/jobsearch?keyword=human+resources+manager",
+        "bdjobs": "https://bdjobs.com/h/jobs/?txtKeyword=human%20resources%20manager",
         "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=HR%20Manager&location=Bangladesh"
       },
       "active_jobs": []
@@ -486,7 +486,7 @@ export const mockAnalysisResult = {
         "Study Open Banking APIs and interoperable digital transaction platforms (IDTP / Binimoy)."
       ],
       "application_links": {
-        "bdjobs": "https://bdjobs.com/jobsearch?keyword=fintech+product+manager",
+        "bdjobs": "https://bdjobs.com/h/jobs/?txtKeyword=fintech%20product%20manager",
         "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=FinTech%20Product%20Manager&location=Bangladesh"
       },
       "active_jobs": []
@@ -527,7 +527,7 @@ export const mockAnalysisResult = {
         "Master VAT return filing (Mushak 9.1) on the NBR online portal."
       ],
       "application_links": {
-        "bdjobs": "https://bdjobs.com/jobsearch?keyword=taxation+manager",
+        "bdjobs": "https://bdjobs.com/h/jobs/?txtKeyword=taxation%20manager",
         "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=Corporate%20Tax%20Manager&location=Bangladesh"
       },
       "active_jobs": []
@@ -568,7 +568,7 @@ export const mockAnalysisResult = {
         "Study trade marketing and distributor network management in urban and semi-urban Bangladesh."
       ],
       "application_links": {
-        "bdjobs": "https://bdjobs.com/jobsearch?keyword=brand+manager",
+        "bdjobs": "https://bdjobs.com/h/jobs/?txtKeyword=brand%20manager",
         "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=Brand%20Manager&location=Bangladesh"
       },
       "active_jobs": []
@@ -609,7 +609,7 @@ export const mockAnalysisResult = {
         "Train in quantitative Monitoring, Evaluation, Accountability and Learning (MEAL) systems."
       ],
       "application_links": {
-        "bdjobs": "https://bdjobs.com/jobsearch?keyword=project+coordinator+ngo",
+        "bdjobs": "https://bdjobs.com/h/jobs/?txtKeyword=project%20coordinator%20ngo",
         "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=NGO%20Project%20Manager&location=Bangladesh"
       },
       "active_jobs": []
@@ -649,7 +649,7 @@ export const mockAnalysisResult = {
         "Learn modern software development lifecycle (SDLC) and REST API principles."
       ],
       "application_links": {
-        "bdjobs": "https://bdjobs.com/jobsearch?keyword=software+product+manager",
+        "bdjobs": "https://bdjobs.com/h/jobs/?txtKeyword=software%20product%20manager",
         "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=Product%20Manager&location=Bangladesh"
       },
       "active_jobs": []
@@ -693,7 +693,7 @@ export const mockAnalysisResult = {
         "Learn SQL querying for data warehousing and cohort analysis."
       ],
       "application_links": {
-        "bdjobs": "https://bdjobs.com/jobsearch?keyword=data+analyst",
+        "bdjobs": "https://bdjobs.com/h/jobs/?txtKeyword=data%20analyst",
         "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=Data%20Analyst&location=Bangladesh"
       },
       "active_jobs": []
@@ -775,7 +775,7 @@ export const mockAnalysisResult = {
         "Learn international buyer compliance standards (Sedex, BSCI, Oeko-Tex)."
       ],
       "application_links": {
-        "bdjobs": "https://bdjobs.com/jobsearch?keyword=garment+merchandiser",
+        "bdjobs": "https://bdjobs.com/h/jobs/?txtKeyword=garment%20merchandiser",
         "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=Apparel%20Merchandiser&location=Bangladesh"
       },
       "active_jobs": []
@@ -815,7 +815,7 @@ export const mockAnalysisResult = {
         "Master Google Analytics 4 (GA4) conversion funnels and ROAS metrics."
       ],
       "application_links": {
-        "bdjobs": "https://bdjobs.com/jobsearch?keyword=digital+marketing+manager",
+        "bdjobs": "https://bdjobs.com/h/jobs/?txtKeyword=digital%20marketing%20manager",
         "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=Digital%20Marketing%20Manager&location=Bangladesh"
       },
       "active_jobs": []
@@ -896,7 +896,7 @@ export const mockAnalysisResult = {
         "Study CRM automation with HubSpot and Salesforce."
       ],
       "application_links": {
-        "bdjobs": "https://bdjobs.com/jobsearch?keyword=key+account+manager",
+        "bdjobs": "https://bdjobs.com/h/jobs/?txtKeyword=key%20account%20manager",
         "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=Key%20Account%20Manager&location=Bangladesh"
       },
       "active_jobs": []
@@ -936,7 +936,7 @@ export const mockAnalysisResult = {
         "Learn patient billing, clinical insurance verification, and NABH hospital quality standards."
       ],
       "application_links": {
-        "bdjobs": "https://bdjobs.com/jobsearch?keyword=hospital+administrator",
+        "bdjobs": "https://bdjobs.com/h/jobs/?txtKeyword=hospital%20administrator",
         "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=Hospital%20Administrator&location=Bangladesh"
       },
       "active_jobs": []
@@ -977,7 +977,7 @@ export const mockAnalysisResult = {
         "Attend academic pedagogy workshops on university curriculum design."
       ],
       "application_links": {
-        "bdjobs": "https://bdjobs.com/jobsearch?keyword=lecturer+finance",
+        "bdjobs": "https://bdjobs.com/h/jobs/?txtKeyword=lecturer%20finance",
         "linkedin_bd": "https://www.linkedin.com/jobs/search/?keywords=Lecturer%20Finance&location=Bangladesh"
       },
       "active_jobs": []

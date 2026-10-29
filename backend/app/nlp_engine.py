@@ -229,7 +229,7 @@ def match_cv_to_categories(profile: Dict[str, Any], categories: List[Dict[str, A
         status = "Strong Fit" if final_score >= 80 else ("Good Fit" if final_score >= 70 else "Fair Match")
 
         search_query = urllib.parse.quote(cat.get("name", ""))
-        bdjobs_url = f"https://bdjobs.com/jobsearch?keyword={search_query}"
+        bdjobs_url = f"https://bdjobs.com/h/jobs/?txtKeyword={search_query}"
         linkedin_url = f"https://www.linkedin.com/jobs/search/?keywords={search_query}&location=Bangladesh"
         teletalk_url = "http://alljobs.teletalk.com.bd" if "govt" in cat_id or "cadre" in cat_id or "bank" in cat_id else None
 
